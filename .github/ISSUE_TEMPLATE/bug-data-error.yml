@@ -1,0 +1,51 @@
+name: Data Error
+description: Report incorrect, missing, or malformed hadith data
+labels: ["data-error", "triage"]
+body:
+  - type: input
+    id: collection
+    attributes:
+      label: Collection
+      description: Name of the hadith collection
+      placeholder: "e.g. bukhari, muslim, malik, nawawi40, riyadussalihin"
+    validations:
+      required: true
+  - type: input
+    id: hadith-ref
+    attributes:
+      label: Hadith reference
+      description: "Book number and hadith number, e.g. Book 1, Hadith 23"
+      placeholder: "Book X, Hadith Y"
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: Affected field
+      options:
+        - text_ar
+        - text_en
+        - matn_ar
+        - matn_en
+        - isnad_ar
+        - isnad_en
+        - closing_ar
+        - narrator
+        - hadith_number
+        - chapter
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What's wrong?
+      description: Describe the error and what the correct value should be
+    validations:
+      required: true
+  - type: input
+    id: sunnah-url
+    attributes:
+      label: sunnah.com URL
+      description: Link to the hadith on sunnah.com for comparison
+      placeholder: "https://sunnah.com/bukhari:1"

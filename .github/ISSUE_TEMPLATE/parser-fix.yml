@@ -1,0 +1,41 @@
+name: Parser / Scraper Bug
+description: Report a bug in the scraping or parsing logic
+labels: ["parser-fix", "triage"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - parser.ts (DOM parsing)
+        - scraper.ts (fetch / orchestration)
+        - state.ts (progress / resume)
+        - validate.ts (validation rules)
+        - main.ts (CLI)
+    validations:
+      required: true
+  - type: checkboxes
+    id: collections
+    attributes:
+      label: Affected collection(s)
+      options:
+        - label: bukhari
+        - label: muslim
+        - label: malik
+        - label: nawawi40
+        - label: riyadussalihin
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What's the bug? Include error output if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: How can we reproduce this?
+      value: |
+        1. Run `deno task scrape <collection>`
+        2. ...
