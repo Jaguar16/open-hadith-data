@@ -1,0 +1,16 @@
+# Data (distributed via GitHub Releases)
+data/
+dist/
+
+# Deno
+deno.lock
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

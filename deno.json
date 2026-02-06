@@ -1,0 +1,20 @@
+{
+  "name": "open-hadith-data",
+  "version": "1.0.0",
+  "tasks": {
+    "scrape": "deno run --allow-net --allow-read --allow-write src/main.ts",
+    "scrape:one": "deno run --allow-net --allow-read --allow-write src/rescrape-one.ts",
+    "validate": "deno run --allow-read src/validate.ts",
+    "build:sqlite": "deno run --allow-read --allow-write --allow-ffi scripts/build-sqlite.ts",
+    "build:csv": "deno run --allow-read --allow-write scripts/build-csv.ts"
+  },
+  "imports": {
+    "@std/fs": "jsr:@std/fs@^1",
+    "@std/path": "jsr:@std/path@^1",
+    "deno-dom": "jsr:@b-fuze/deno-dom@0.1.48"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true
+  }
+}
