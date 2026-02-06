@@ -2,13 +2,13 @@
 
 **The most comprehensive, structured, open-source hadith dataset for developers.**
 
-**أشمل مجموعة بيانات أحاديث مهيكلة ومفتوحة المصدر للمطورين.**
+**أشمل قاعدة بيانات مهيكلة للأحاديث النبوية، مفتوحة المصدر للمطورين.**
 
 ---
 
 **46,891 hadiths** across **17 collections** — available as **SQLite**, **JSON**, and **CSV**.
 
-**46,891 حديثًا** من **17 مجموعة** — متوفرة بصيغ **SQLite** و**JSON** و**CSV**.
+**46,891 حديثًا** من **17 مصنّفًا** — متوفرة بصيغ **SQLite** و**JSON** و**CSV**.
 
 [**Download Latest Release**](../../releases/latest)
 
@@ -22,13 +22,13 @@ This project fills that gap by extracting data from [sunnah.com](https://sunnah.
 
 ---
 
-في حين أن مواقع مثل [sunnah.com](https://sunnah.com) و[qalarasulullah.com](https://qalarasulullah.com) توفر وصولًا ممتازًا للأحاديث النبوية، لا توجد قاعدة بيانات مهيكلة وجاهزة للاستخدام متاحة للمطورين. بناء تطبيق للأحاديث، أو إجراء بحث في المعالجة اللغوية الإسلامية، أو حتى البحث البرمجي عبر المجموعات يتطلب مجموعة بيانات غير متوفرة بصيغة سهلة الوصول — حتى الآن.
+رغم أن مواقع مثل [sunnah.com](https://sunnah.com) و[قال رسول الله](https://qalarasulullah.com) توفر وصولًا ممتازًا إلى كتب الحديث النبوي، لا توجد قاعدة بيانات مهيكلة وجاهزة للاستخدام متاحة للمطورين. سواء لبناء تطبيق حديثي، أو إجراء أبحاث في المعالجة اللغوية للنصوص الشرعية، أو البحث البرمجي في المصنّفات — لم تكن هناك قاعدة بيانات متاحة بصيغة مناسبة، حتى الآن.
 
-هذا المشروع يسد هذه الفجوة باستخراج البيانات من [sunnah.com](https://sunnah.com) إلى قاعدة بيانات نظيفة ومهيكلة وقابلة للتحميل يمكن لأي مطور استخدامها فورًا.
+هذا المشروع يسد هذه الثغرة باستخراج البيانات من [sunnah.com](https://sunnah.com) إلى قاعدة بيانات نظيفة ومهيكلة وقابلة للتحميل، يمكن لأي مطور استخدامها فورًا.
 
 ---
 
-## Features / المميزات
+## Features / الخصائص
 
 - **17 hadith collections** — The 6 major books (Kutub al-Sittah), and more (full list on [sunnah.com](https://sunnah.com))
 - **Bilingual** — Arabic text with English translations
@@ -39,20 +39,20 @@ This project fills that gap by extracting data from [sunnah.com](https://sunnah.
 
 ---
 
-- **17 مجموعة أحاديث** — الكتب الستة الكبرى، بالإضافة إلى موطأ مالك ومسند أحمد و9 مجموعات أخرى (القائمة الكاملة على [sunnah.com](https://sunnah.com))
-- **ثنائي اللغة** — النص العربي مع الترجمة الإنجليزية
-- **فصل الإسناد عن المتن** — سلسلة الرواية مفصولة عن محتوى الحديث (مفيد للمعالجة اللغوية والتعلم الآلي)
-- **معلومات التصحيح** — درجات الأحاديث (صحيح، حسن، ضعيف) حيثما توفرت
+- **17 مصنّفًا حديثيًا** — الكتب الستة (الصحيحان والسنن الأربع)، والموطأ والمسند وغيرها (القائمة الكاملة على [sunnah.com](https://sunnah.com))
+- **عربي وإنجليزي** — المتون العربية مع ترجمتها الإنجليزية
+- **فصل الإسناد عن المتن** — السند مفصول عن متن الحديث (مفيد للمعالجة اللغوية والتعلم الآلي)
+- **أحكام المحدّثين** — درجة الحديث (صحيح، حسن، ضعيف) حيثما توفرت
 - **صيغ متعددة** — قاعدة بيانات SQLite، ملفات JSON، ملفات CSV
-- **الكود المصدري للاستخراج** — أداة الاستخراج متضمنة للشفافية وتصحيحات المجتمع
+- **الكود المصدري** — أداة الاستخراج متضمنة للشفافية ولتصحيح الأخطاء من المجتمع
 
 ---
 
-## Collections / المجموعات
+## Collections / المصنّفات
 
-### Primary Collections / المجموعات الأساسية
+### Primary Collections / الأمهات
 
-| Collection / المجموعة | Hadiths / الأحاديث | Books / الكتب |
+| Collection / المصنَّف | Hadiths / الأحاديث | Books / الكتب |
 |---|---:|---:|
 | Sahih al-Bukhari / صحيح البخاري | 7,252 | 97 |
 | Sahih Muslim / صحيح مسلم | 3,087 | 56 |
@@ -65,9 +65,9 @@ This project fills that gap by extracting data from [sunnah.com](https://sunnah.
 | Sunan ad-Darimi / سنن الدارمي | 3,406 | 24 |
 | Al-Adab Al-Mufrad / الأدب المفرد | 1,322 | 57 |
 
-### Compilation Collections / مجموعات مختارة
+### Compilation Collections / المختارات والمجاميع
 
-| Collection / المجموعة | Hadiths / الأحاديث | Books / الكتب |
+| Collection / المصنَّف | Hadiths / الأحاديث | Books / الكتب |
 |---|---:|---:|
 | Riyad as-Salihin / رياض الصالحين | 1,896 | 20 |
 | Bulugh al-Maram / بلوغ المرام | 1,557 | 16 |
@@ -99,17 +99,17 @@ Each hadith contains these fields:
 
 | Field | Description | الوصف |
 |-------|-------------|-------|
-| `text_ar` | Full Arabic text (display) | النص العربي الكامل (للعرض) |
+| `text_ar` | Full Arabic text (display) | النص الكامل للحديث بالعربية (للعرض) |
 | `text_en` | Full English translation (display) | الترجمة الإنجليزية الكاملة (للعرض) |
-| `matn_ar` | Arabic hadith content only | محتوى الحديث العربي فقط |
-| `matn_en` | English hadith content only | محتوى الحديث الإنجليزي فقط |
-| `isnad_ar` | Arabic chain of narration | سلسلة الإسناد العربية |
-| `isnad_en` | English narrator introduction | مقدمة الراوي بالإنجليزية |
-| `closing_ar` | Scholar's commentary | تعليق العالم |
-| `narrator` | Primary narrator name | اسم الراوي الأساسي |
+| `matn_ar` | Arabic hadith content (Prophet's words) | المتن — نص الحديث دون الإسناد |
+| `matn_en` | English hadith content (Prophet's words) | ترجمة المتن بالإنجليزية |
+| `isnad_ar` | Arabic chain of narration | الإسناد — سلسلة الرواة |
+| `isnad_en` | English narrator introduction | مقدمة السند بالإنجليزية |
+| `closing_ar` | Second sanad or scholar commentary | تتمة السند أو كلام المحدّث |
+| `narrator` | Primary narrator (Sahabi) | الراوي — الصحابي الذي روى الحديث |
 | `grade_en` | Hadith grade in English | درجة الحديث بالإنجليزية |
-| `grade_ar` | Hadith grade in Arabic | درجة الحديث بالعربية |
-| `hadith_number` | Number within collection | الرقم في المجموعة |
+| `grade_ar` | Hadith grade in Arabic | حكم المحدّث (صحيح، حسن، ضعيف) |
+| `hadith_number` | Number within collection | رقم الحديث في المجموعة |
 | `reference` | Full reference string | المرجع الكامل |
 
 
@@ -168,7 +168,7 @@ for (const book of bukhari.books) {
 
 The scraper extracts data from [sunnah.com](https://sunnah.com) using Deno and is included in this repository for transparency. If you find extraction errors, you can fix the parser and submit a PR.
 
-أداة الاستخراج تستخرج البيانات من [sunnah.com](https://sunnah.com) باستخدام Deno وهي مضمنة في هذا المستودع للشفافية. إذا وجدت أخطاء في الاستخراج، يمكنك إصلاح المحلل وتقديم طلب سحب.
+أداة الاستخراج تجمع البيانات من [sunnah.com](https://sunnah.com) باستخدام Deno، وهي مضمنة في المستودع للشفافية. إذا وجدت خطأ في الاستخراج، يمكنك إصلاحه وتقديم طلب مراجعة (Pull Request).
 
 ### Prerequisites
 
@@ -177,19 +177,19 @@ The scraper extracts data from [sunnah.com](https://sunnah.com) using Deno and i
 ### Commands
 
 ```bash
-# Scrape all collections / استخراج جميع المجموعات
+# استخراج جميع المجموعات
 deno task scrape
 
-# Scrape a single collection / استخراج مجموعة واحدة
+# استخراج مجموعة واحدة
 deno task scrape bukhari
 
-# Validate scraped data / التحقق من البيانات
+# التحقق من صحة البيانات المستخرجة
 deno task validate
 
-# Build SQLite database / بناء قاعدة بيانات SQLite
+# بناء قاعدة بيانات SQLite
 deno task build:sqlite
 
-# Build CSV files / بناء ملفات CSV
+# بناء ملفات CSV
 deno task build:csv
 ```
 
@@ -229,17 +229,17 @@ This dataset is a public utility. The structured data is dedicated to the public
 
 - **الكود المصدري**: [رخصة MIT](LICENSE)
 - **البيانات المهيكلة**: [CC0 1.0 — ملك عام](DATA_LICENSE.md)
-- **الترجمات الإنجليزية**: مصدرها sunnah.com — راجع شروطهم لحقوق إعادة التوزيع
+- **الترجمات الإنجليزية**: مصدرها sunnah.com — راجع شروطهم بخصوص إعادة النشر
 
-هذه البيانات منفعة عامة. البيانات المهيكلة مكرّسة للملك العام عبر CC0 ليتمكن أي شخص من استخدامها بحرية ودون قيود.
+هذه القاعدة وقف لوجه الله. البيانات المهيكلة مرخّصة تحت CC0 (ملك عام) ليتمكن أي شخص من الانتفاع بها بحرية ودون قيود.
 
 ---
 
-## Disclaimer / إخلاء المسؤولية
+## Disclaimer / تنبيه
 
 This dataset is extracted automatically from [sunnah.com](https://sunnah.com). While we strive for accuracy, we do not guarantee the completeness or correctness of the data. **For religious practice and scholarly study, always refer to authenticated printed editions and qualified scholars.**
 
-تم استخراج هذه البيانات آليًا من [sunnah.com](https://sunnah.com). على الرغم من حرصنا على الدقة، لا نضمن اكتمال أو صحة البيانات. **للعبادة والدراسة الشرعية، يُرجع دائمًا إلى الطبعات المحققة المطبوعة والعلماء المؤهلين.**
+استُخرجت هذه البيانات آليًا من [sunnah.com](https://sunnah.com). رغم الحرص على الدقة، لا نضمن اكتمال البيانات أو خلوّها من الخطأ. **للعمل بالحديث والدراسة الشرعية، المرجع هو الطبعات المحققة وأهل العلم.**
 
 ---
 
@@ -247,4 +247,4 @@ This dataset is extracted automatically from [sunnah.com](https://sunnah.com). W
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to report issues and submit parser fixes.
 
-راجع [CONTRIBUTING.md](CONTRIBUTING.md) لمعرفة كيفية الإبلاغ عن المشاكل وتقديم إصلاحات المحلل.
+راجع [CONTRIBUTING.md](CONTRIBUTING.md) للمساهمة في تصحيح الأخطاء أو تحسين الاستخراج.
