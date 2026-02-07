@@ -340,7 +340,7 @@ function extractHadiths(
 /**
  * Parse a hadith container element
  * Extracts separated fields for training:
- * - matn_ar: Arabic hadith text (actual Prophet's words) from .arabic_text_details
+ * - matn_ar: Arabic hadith text (actual Prophet's ﷺ words) from .arabic_text_details
  * - matn_en: English hadith text from .text_details
  * - isnad_ar: First chain of narration from first .arabic_sanad
  * - closing_ar: Second isnad/closing from second .arabic_sanad (if exists)

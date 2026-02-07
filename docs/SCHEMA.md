@@ -127,7 +127,7 @@ Single file per collection with all books and hadiths combined.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `matn_ar` | string \| null | **Arabic hadith content** — The actual Prophet's words/teachings |
+| `matn_ar` | string \| null | **Arabic hadith content** — The actual Prophet's ﷺ words/teachings |
 | `matn_en` | string \| null | **English hadith content** — Translated hadith text |
 
 ### Metadata Fields
@@ -182,7 +182,7 @@ A typical hadith has 3 parts:
 | Arabic Part | Field | Content |
 |-------------|-------|---------|
 | إسناد (Isnad) | `isnad_ar` | Chain of transmission |
-| متن (Matn) | `matn_ar` | Prophet's actual words |
+| متن (Matn) | `matn_ar` | Prophet's ﷺ actual words |
 | تعليق (Closing) | `closing_ar` | Scholar's commentary |
 | الكل (Full) | `text_ar` | All parts combined |
 

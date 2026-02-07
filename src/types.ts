@@ -93,7 +93,7 @@ export interface ScrapedHadith {
   isnad_ar: string | null;
   /** English narrator intro ("Narrated X:") */
   isnad_en: string | null;
-  /** Arabic hadith content - actual Prophet's words (from .arabic_text_details) - USE FOR TRAINING */
+  /** Arabic hadith content - actual Prophet's ﷺ words (from .arabic_text_details) - USE FOR TRAINING */
   matn_ar: string | null;
   /** English hadith content - actual hadith text (from .text_details) - USE FOR TRAINING */
   matn_en: string | null;

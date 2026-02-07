@@ -101,8 +101,8 @@ Each hadith contains these fields:
 |-------|-------------|-------|
 | `text_ar` | Full Arabic text (display) | النص الكامل للحديث بالعربية (للعرض) |
 | `text_en` | Full English translation (display) | الترجمة الإنجليزية الكاملة (للعرض) |
-| `matn_ar` | Arabic hadith content (Prophet's words) | المتن — نص الحديث دون الإسناد |
-| `matn_en` | English hadith content (Prophet's words) | ترجمة المتن بالإنجليزية |
+| `matn_ar` | Arabic hadith content (Prophet's ﷺ words) | المتن — نص الحديث دون الإسناد |
+| `matn_en` | English hadith content (Prophet's ﷺ words) | ترجمة المتن بالإنجليزية |
 | `isnad_ar` | Arabic chain of narration | الإسناد — سلسلة الرواة |
 | `isnad_en` | English narrator introduction | مقدمة السند بالإنجليزية |
 | `closing_ar` | Second sanad or scholar commentary | تتمة السند أو كلام المحدّث |
