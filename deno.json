@@ -4,6 +4,7 @@
   "tasks": {
     "scrape": "deno run --allow-net --allow-read --allow-write src/main.ts",
     "scrape:one": "deno run --allow-net --allow-read --allow-write src/rescrape-one.ts",
+    "scrape:hisn": "deno run --allow-net --allow-read --allow-write src/hisn/main.ts",
     "validate": "deno run --allow-read src/validate.ts",
     "build:sqlite": "deno run --allow-read --allow-write --allow-ffi scripts/build-sqlite.ts",
     "build:csv": "deno run --allow-read --allow-write scripts/build-csv.ts"
