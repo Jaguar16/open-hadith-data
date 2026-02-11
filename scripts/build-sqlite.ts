@@ -17,6 +17,7 @@ import {
   type ScrapedCollection,
   type ScrapedHadith,
 } from "../src/types.ts";
+import type { HisnCollection } from "../src/hisn/types.ts";
 
 const COLLECTIONS_DIR = "data/collections";
 const OUTPUT_DIR = "dist";
@@ -47,7 +48,7 @@ db.exec(`
     name_ar TEXT NOT NULL,
     author_en TEXT NOT NULL,
     author_ar TEXT NOT NULL,
-    type TEXT NOT NULL CHECK(type IN ('primary', 'compilation')),
+    type TEXT NOT NULL CHECK(type IN ('primary', 'compilation', 'dua')),
     total_books INTEGER NOT NULL DEFAULT 0,
     total_chapters INTEGER NOT NULL DEFAULT 0,
     total_hadiths INTEGER NOT NULL DEFAULT 0,
@@ -66,7 +67,8 @@ db.exec(`
 
   CREATE TABLE chapters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    book_id INTEGER NOT NULL REFERENCES books(id),
+    collection_id TEXT NOT NULL REFERENCES collections(id),
+    book_id INTEGER REFERENCES books(id),
     chapter_number INTEGER,
     name_en TEXT,
     name_ar TEXT
@@ -106,6 +108,25 @@ db.exec(`
   CREATE INDEX idx_hadiths_grade ON hadiths(source_grade);
   CREATE INDEX idx_books_collection ON books(collection_id);
   CREATE INDEX idx_chapters_book ON chapters(book_id);
+  CREATE INDEX idx_chapters_collection ON chapters(collection_id);
+
+  CREATE TABLE duas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    collection_id TEXT NOT NULL REFERENCES collections(id),
+    chapter_number INTEGER NOT NULL,
+    dua_number TEXT NOT NULL,
+    reference TEXT,
+    text_ar TEXT NOT NULL DEFAULT '',
+    transliteration TEXT,
+    translation TEXT,
+    context_en TEXT,
+    context_transliteration TEXT,
+    hisn_reference TEXT,
+    url_source TEXT
+  );
+
+  CREATE INDEX idx_duas_collection ON duas(collection_id);
+  CREATE INDEX idx_duas_chapter ON duas(chapter_number);
 `);
 
 // ============================================================================
@@ -123,8 +144,8 @@ const insertBook = db.prepare(`
 `);
 
 const insertChapter = db.prepare(`
-  INSERT INTO chapters (book_id, chapter_number, name_en, name_ar)
-  VALUES (?, ?, ?, ?)
+  INSERT INTO chapters (collection_id, book_id, chapter_number, name_en, name_ar)
+  VALUES (?, ?, ?, ?, ?)
 `);
 
 const insertHadith = db.prepare(`
@@ -183,7 +204,7 @@ for (const collectionId of collectionIds) {
 
       // Insert chapters
       for (const chapter of book.chapters) {
-        insertChapter.run(bookId, chapter.chapter_number, chapter.name_en, chapter.name_ar);
+        insertChapter.run(collectionId, bookId, chapter.chapter_number, chapter.name_en, chapter.name_ar);
       }
 
       // Insert hadiths
@@ -218,18 +239,64 @@ for (const collectionId of collectionIds) {
   console.log(`  ${collectionId.padEnd(20)} ${String(hadithCount).padStart(6)} hadiths`);
 }
 
+// ============================================================================
+// Hisn al-Muslim (dua collection — separate structure)
+// ============================================================================
+
+const insertDua = db.prepare(`
+  INSERT INTO duas (
+    collection_id, chapter_number, dua_number, reference,
+    text_ar, transliteration, translation,
+    context_en, context_transliteration, hisn_reference, url_source
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+`);
+
+let totalDuas = 0;
+
+try {
+  const hisnRaw = await Deno.readTextFile(`${COLLECTIONS_DIR}/hisn.json`);
+  const hisn: HisnCollection = JSON.parse(hisnRaw);
+  const col = hisn.collection;
+
+  insertCollection.run(
+    col.id, col.name_en, col.name_ar, col.author_en, col.author_ar,
+    "dua", 0, hisn.stats.total_chapters, hisn.stats.total_duas,
+    col.scraped_at,
+  );
+
+  for (const ch of hisn.chapters) {
+    insertChapter.run("hisn", null, ch.chapter_number, ch.name_en, ch.name_ar);
+  }
+
+  for (const d of hisn.duas) {
+    insertDua.run(
+      "hisn", d.chapter_number, d.dua_number, d.reference,
+      d.text_ar || "", d.transliteration, d.translation,
+      d.context_en, d.context_transliteration, d.hisn_reference, d.url_source,
+    );
+    totalDuas++;
+  }
+
+  console.log(`  ${"hisn".padEnd(20)} ${String(totalDuas).padStart(6)} duas`);
+} catch {
+  console.warn("  Skipping hisn — file not found");
+}
+
 db.exec("COMMIT");
 
 // Final stats
 const stats = db.prepare("SELECT COUNT(*) as n FROM hadiths").get() as { n: number };
 const bookCount = db.prepare("SELECT COUNT(*) as n FROM books").get() as { n: number };
 const chapterCount = db.prepare("SELECT COUNT(*) as n FROM chapters").get() as { n: number };
+const duaCount = db.prepare("SELECT COUNT(*) as n FROM duas").get() as { n: number };
+const colCount = db.prepare("SELECT COUNT(*) as n FROM collections").get() as { n: number };
 
 console.log(`\nDatabase built: ${DB_PATH}`);
-console.log(`  Collections: ${collectionIds.length}`);
+console.log(`  Collections: ${colCount.n}`);
 console.log(`  Books:       ${bookCount.n}`);
 console.log(`  Chapters:    ${chapterCount.n}`);
 console.log(`  Hadiths:     ${stats.n}`);
+console.log(`  Duas:        ${duaCount.n}`);
 
 // Get file size
 const fileInfo = await Deno.stat(DB_PATH);

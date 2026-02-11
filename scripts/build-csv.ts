@@ -9,6 +9,7 @@
  *   dist/csv/books.csv
  *   dist/csv/chapters.csv
  *   dist/csv/hadiths.csv
+ *   dist/csv/duas.csv
  */
 
 import {
@@ -16,6 +17,7 @@ import {
   type CollectionId,
   type ScrapedCollection,
 } from "../src/types.ts";
+import type { HisnCollection } from "../src/hisn/types.ts";
 
 const COLLECTIONS_DIR = "data/collections";
 const OUTPUT_DIR = "dist/csv";
@@ -50,6 +52,7 @@ const collectionsFile = await Deno.open(`${OUTPUT_DIR}/collections.csv`, { write
 const booksFile = await Deno.open(`${OUTPUT_DIR}/books.csv`, { write: true, create: true, truncate: true });
 const chaptersFile = await Deno.open(`${OUTPUT_DIR}/chapters.csv`, { write: true, create: true, truncate: true });
 const hadithsFile = await Deno.open(`${OUTPUT_DIR}/hadiths.csv`, { write: true, create: true, truncate: true });
+const duasFile = await Deno.open(`${OUTPUT_DIR}/duas.csv`, { write: true, create: true, truncate: true });
 
 const encoder = new TextEncoder();
 
@@ -76,6 +79,13 @@ await write(hadithsFile, writeCsvRow([
   "isnad_ar", "isnad_en", "matn_ar", "matn_en", "closing_ar",
   "narrator", "has_variants", "source_reference", "source_grade",
   "grade_en", "grade_ar", "url_source",
+]));
+
+await write(duasFile, writeCsvRow([
+  "collection_id", "chapter_number", "dua_number", "reference",
+  "text_ar", "transliteration", "translation",
+  "context_en", "context_transliteration",
+  "hisn_reference", "url_source",
 ]));
 
 console.log("Building CSV files...\n");
@@ -152,16 +162,59 @@ for (const collectionId of collectionIds) {
   console.log(`  ${collectionId.padEnd(20)} ${String(hadithCount).padStart(6)} hadiths`);
 }
 
+// ============================================================================
+// Hisn al-Muslim (dua collection — separate structure)
+// ============================================================================
+
+let totalDuas = 0;
+
+try {
+  const hisnRaw = await Deno.readTextFile(`${COLLECTIONS_DIR}/hisn.json`);
+  const hisn: HisnCollection = JSON.parse(hisnRaw);
+  const col = hisn.collection;
+
+  // Write collection row
+  await write(collectionsFile, writeCsvRow([
+    col.id, col.name_en, col.name_ar, col.author_en, col.author_ar,
+    "dua", 0, hisn.stats.total_chapters,
+    hisn.stats.total_duas, col.scraped_at,
+  ]));
+
+  // Write chapters
+  for (const ch of hisn.chapters) {
+    await write(chaptersFile, writeCsvRow([
+      "hisn", null, ch.chapter_number, ch.name_en, ch.name_ar,
+    ]));
+  }
+
+  // Write duas
+  for (const d of hisn.duas) {
+    await write(duasFile, writeCsvRow([
+      "hisn", d.chapter_number, d.dua_number, d.reference,
+      d.text_ar, d.transliteration, d.translation,
+      d.context_en, d.context_transliteration,
+      d.hisn_reference, d.url_source,
+    ]));
+    totalDuas++;
+  }
+
+  console.log(`  ${"hisn".padEnd(20)} ${String(totalDuas).padStart(6)} duas`);
+} catch {
+  console.warn("  Skipping hisn — file not found");
+}
+
 collectionsFile.close();
 booksFile.close();
 chaptersFile.close();
 hadithsFile.close();
+duasFile.close();
 
 console.log(`\nCSV files built in ${OUTPUT_DIR}/`);
 console.log(`  Total hadiths: ${totalHadiths}`);
+console.log(`  Total duas: ${totalDuas}`);
 
 // Show file sizes
-for (const name of ["collections.csv", "books.csv", "chapters.csv", "hadiths.csv"]) {
+for (const name of ["collections.csv", "books.csv", "chapters.csv", "hadiths.csv", "duas.csv"]) {
   const info = await Deno.stat(`${OUTPUT_DIR}/${name}`);
   const size = info.size < 1024 * 1024
     ? `${(info.size / 1024).toFixed(0)} KB`

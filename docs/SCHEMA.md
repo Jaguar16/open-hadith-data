@@ -22,7 +22,7 @@ Single file per collection with all books and hadiths combined.
 
 ## JSON Schema
 
-### Collection File Structure
+### Hadith Collection File Structure
 
 ```json
 {
@@ -65,6 +65,44 @@ Single file per collection with all books and hadiths combined.
   "chapter_number": 1,
   "name_en": "How the Divine Revelation started",
   "name_ar": "باب كَيْفَ كَانَ بَدْءُ الْوَحْىِ"
+}
+```
+
+### Hisn al-Muslim (Du'a Collection) File Structure
+
+```json
+{
+  "collection": {
+    "id": "hisn",
+    "name_en": "Fortress of the Muslim (Hisn al-Muslim)",
+    "name_ar": "حصن المسلم",
+    "author_en": "Sa'id bin Ali bin Wahf Al-Qahtani",
+    "author_ar": "سعيد بن علي بن وهف القحطاني",
+    "scraped_at": "2026-02-07T14:51:02.447Z"
+  },
+  "chapters": [...],
+  "duas": [...],
+  "stats": {
+    "total_chapters": 132,
+    "total_duas": 268
+  }
+}
+```
+
+### Du'a Object
+
+```json
+{
+  "dua_number": "59",
+  "reference": "Hisn al-Muslim 59",
+  "chapter_number": 24,
+  "text_ar": "اللّهُـمَّ أَعِـنِّي عَلـى ذِكْـرِكَ وَشُكْـرِك...",
+  "transliteration": "Allāhumma 'a`innī `alā dhikrika...",
+  "translation": "O Allah, help me to remember You...",
+  "context_en": null,
+  "context_transliteration": null,
+  "hisn_reference": "Abu Dawud 2/86, An-Nasa'i 3/53.",
+  "url_source": "https://sunnah.com/hisn:59"
 }
 ```
 
@@ -156,6 +194,23 @@ Single file per collection with all books and hadiths combined.
 
 ---
 
+## Du'a Fields (Hisn al-Muslim)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `dua_number` | string | Du'a number within collection (e.g., "59", "75a") |
+| `reference` | string | Full reference (e.g., "Hisn al-Muslim 59") |
+| `chapter_number` | number | Chapter this du'a belongs to |
+| `text_ar` | string | Full Arabic text of the du'a |
+| `transliteration` | string \| null | Arabic transliteration in Latin script |
+| `translation` | string \| null | English translation |
+| `context_en` | string \| null | Context/preamble (instructions before the du'a) |
+| `context_transliteration` | string \| null | Transliteration found inside context |
+| `hisn_reference` | string \| null | Source reference (e.g., "Abu Dawud 2/86, An-Nasa'i 3/53") |
+| `url_source` | string | Direct URL to du'a on sunnah.com |
+
+---
+
 ## Understanding Arabic Hadith Structure
 
 A typical hadith has 3 parts:
@@ -229,6 +284,10 @@ Single-page collections without book hierarchy:
 - **qudsi40** - 40 Hadith Qudsi
 - **shahwaliullah40** - Shah Waliullah's 40 Hadith
 
+### Du'a Collections (1)
+Du'a/dhikr collections with separate structure (chapters + duas, no books):
+- **hisn** - Hisn al-Muslim (132 chapters, 268 du'as)
+
 ---
 
 ## Statistics
@@ -252,7 +311,11 @@ Single-page collections without book hierarchy:
 | nawawi40 | 42 | 0 | 0 |
 | qudsi40 | 40 | 0 | 0 |
 | shahwaliullah40 | 40 | 0 | 0 |
-| **Total** | **46,879** | **607** | **15,376** |
+| **Hadiths Total** | **46,891** | **607** | **14,245** |
+
+| Collection | Du'as | Chapters |
+|------------|-------|----------|
+| hisn | 268 | 132 |
 
 ---
 
@@ -273,6 +336,7 @@ Fields may be `null` when:
 - Data not available in source HTML
 - Collection structure doesn't support it (e.g., chapters in Malik)
 - Flat collection without book hierarchy (nawawi40, qudsi40, shahwaliullah40)
+- Du'a collection without hadith structure (hisn — uses `duas` table, not `hadiths`)
 - Grade not provided for the collection
 
 ### Variant Hadiths

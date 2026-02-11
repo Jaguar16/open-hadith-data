@@ -30,7 +30,7 @@ This project fills that gap by extracting data from [sunnah.com](https://sunnah.
 
 ## Features / الخصائص
 
-- **17 hadith collections** — The 6 major books (Kutub al-Sittah), and more (full list on [sunnah.com](https://sunnah.com))
+- **18 collections** — The 6 major books (Kutub al-Sittah), 11 more hadith collections, and Hisn al-Muslim (du'as)
 - **Bilingual** — Arabic text with English translations
 - **Isnad/Matn separation** — Chain of narration separated from hadith content (useful for NLP/ML)
 - **Grading information** — Hadith grades (Sahih, Hasan, Da'if) where available
@@ -76,6 +76,12 @@ This project fills that gap by extracting data from [sunnah.com](https://sunnah.
 | 40 Hadith an-Nawawi / الأربعون النووية | 42 | — |
 | 40 Hadith Qudsi / الأحاديث القدسية | 40 | — |
 | Shah Waliullah's 40 / أربعون شاه ولي الله | 40 | — |
+
+### Du'a Collections / مجاميع الأدعية
+
+| Collection / المصنَّف | Du'as / الأدعية | Chapters / الأبواب |
+|---|---:|---:|
+| Hisn al-Muslim / حصن المسلم | 268 | 132 |
 
 ---
 
@@ -177,7 +183,7 @@ The scraper extracts data from [sunnah.com](https://sunnah.com) using Deno and i
 ### Commands
 
 ```bash
-# استخراج جميع المجموعات
+# استخراج جميع المجموعات الحديثية
 deno task scrape
 
 # استخراج مجموعة واحدة
@@ -207,11 +213,16 @@ deno run --allow-net --allow-read --allow-write src/rescrape-one.ts <collection>
 ```sql
 collections (id, name_en, name_ar, author_en, author_ar, type, total_books, total_chapters, total_hadiths)
 books       (id, collection_id, book_number, book_key, name_en, name_ar)
-chapters    (id, book_id, chapter_number, name_en, name_ar)
+chapters    (id, collection_id, book_id, chapter_number, name_en, name_ar)
 hadiths     (id, collection_id, book_id, chapter_number, hadith_number, reference,
              text_ar, text_en, isnad_ar, isnad_en, matn_ar, matn_en, closing_ar,
              narrator, has_variants, source_reference, source_grade, grade_en, grade_ar, url_source)
+duas        (id, collection_id, chapter_number, dua_number, reference,
+             text_ar, transliteration, translation,
+             context_en, context_transliteration, hisn_reference, url_source)
 ```
+
+The `collections.type` field is `'primary'`, `'compilation'`, or `'dua'`.
 
 See [docs/SCHEMA.md](docs/SCHEMA.md) for detailed field descriptions.
 
